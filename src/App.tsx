@@ -775,13 +775,13 @@ function AppContent() {
         className="!py-0 !px-0"
         innerClassName="!max-w-none !mx-0"
       >
-        <div className="grid md:grid-cols-2 min-h-[600px]">
+        <div className="grid md:grid-cols-2 min-h-[450px]">
           {/* Video Side */}
-          <div className="relative w-full bg-gradient-to-br from-slate-800 to-sky-900 flex items-center justify-center p-8 md:p-12 overflow-hidden">
+          <div className="relative w-full bg-gradient-to-br from-slate-800 to-sky-900 flex items-center justify-center p-6 md:p-8 overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1527581177303-34eeb8ce5468?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
 
-            <div className="relative z-10 w-full max-w-[400px] md:max-w-md lg:max-w-[460px]">
+            <div className="relative z-10 w-full max-w-[260px] md:max-w-[300px] lg:max-w-[320px]">
               <IgVideoCard
                 videoUrl="/media/Insta.mp4"
                 poster=""
@@ -792,8 +792,8 @@ function AppContent() {
           </div>
 
           {/* Content Side */}
-          <div className="bg-slate-900 text-white p-12 md:p-20 lg:p-24 flex flex-col justify-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight whitespace-nowrap">
+          <div className="bg-slate-900 text-white p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight whitespace-nowrap">
               <ShinyText text={t.about.title} speed={3} color="#f8fafc" shineColor="#38bdf8" />
             </h2>
             <BlurText
@@ -802,10 +802,10 @@ function AppContent() {
               stepDuration={0.4}
               animateBy="words"
               direction="top"
-              className="text-xl font-medium mb-8 text-white/80"
+              className="text-base font-medium mb-5 text-white/80"
             />
 
-            <div className="mb-8 space-y-5">
+            <div className="mb-5 space-y-3">
               {t.about.desc
                 .split("\n\n")
                 .map((paragraph: string, i: number) => (
@@ -816,12 +816,12 @@ function AppContent() {
                     stepDuration={0.35}
                     animateBy="words"
                     direction="top"
-                    className="text-white/70 leading-relaxed text-lg"
+                    className="text-white/70 leading-relaxed text-sm"
                   />
                 ))}
             </div>
 
-            <ul className="space-y-4 mb-10">
+            <ul className="space-y-2 mb-6">
               {t.about.points.map((item: string, i: number) => (
                 <motion.li
                   key={i}
@@ -829,15 +829,15 @@ function AppContent() {
                   whileInView={{ opacity: 1, x: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 * i }}
-                  className="flex items-start gap-4"
+                  className="flex items-center gap-3"
                 >
-                  <div className="mt-2 w-2 h-2 rounded-full bg-primary shrink-0" />
-                  <span className="text-white/90 text-lg">{item}</span>
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                  <span className="text-white/90 text-sm">{item}</span>
                 </motion.li>
               ))}
             </ul>
 
-            <p className="mb-10 text-white/90 font-medium text-lg">
+            <p className="mb-6 text-white/90 font-medium text-sm">
               <span className="underline underline-offset-4 decoration-primary">
                 {t.about.goal.split(":")[0]}
               </span>
@@ -847,7 +847,7 @@ function AppContent() {
             <div>
               <Link
                 to="/#contact"
-                className="inline-block bg-primary text-white px-8 py-4 font-bold hover:bg-blue-600 transition-colors rounded-sm"
+                className="inline-block bg-primary text-white px-6 py-3 font-bold hover:bg-blue-600 transition-colors rounded-full text-sm"
               >
                 {t.about.cta}
               </Link>
