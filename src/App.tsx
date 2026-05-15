@@ -756,7 +756,7 @@ function AppContent() {
                 href="https://www.instagram.com/pressurewashpross"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 sm:w-[60px] sm:h-[60px] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-transform flex-shrink-0"
+                className="w-14 h-14 sm:w-[60px] sm:h-[60px] bg-gradient-to-tr from-sky-400 via-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-transform flex-shrink-0"
               >
                 <Instagram size={28} />
               </a>
