@@ -167,7 +167,6 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
     "/media/681283886_17887291281498336_2947960714908521656_n.jpg",
     "/media/681332233_17887291911498336_5683450116220470454_n.jpg",
     "/media/681506331_17887291524498336_4960231458414595658_n.jpg",
-    "/media/681617677_17887874562498336_3618749318565064718_n-1.jpg",
     "/media/681617677_17887874562498336_3618749318565064718_n.jpg",
     "/media/681810968_17887873440498336_2085463534930112871_n.jpg",
     "/media/682101925_17887874325498336_3088102195654254409_n.jpg",
@@ -207,8 +206,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
     "/media/681283886_17887291281498336_2947960714908521656_n.jpg":   "Driveways", // concrete driveway + two-story house
     "/media/681332233_17887291911498336_5683450116220470454_n.jpg":   "Patios",    // wooden dock / waterfront deck
     "/media/681506331_17887291524498336_4960231458414595658_n.jpg":   "Driveways", // long concrete driveway + front house
-    "/media/681617677_17887874562498336_3618749318565064718_n-1.jpg": "Driveways", // luxury paver driveway, arched front
-    "/media/681617677_17887874562498336_3618749318565064718_n.jpg":   "Driveways", // same as above (duplicate)
+    "/media/681617677_17887874562498336_3618749318565064718_n.jpg":   "Driveways", // luxury paver driveway, arched front
     "/media/681810968_17887873440498336_2085463534930112871_n.jpg":   "Driveways", // large luxury estate paver driveway
     "/media/682101925_17887874325498336_3088102195654254409_n.jpg":   "Driveways", // paver driveway + stone entry, front
     "/media/682256810_17887874334498336_584188443371572302_n.jpg":    "Driveways", // sidewalk & curb cleaning, front of homes
