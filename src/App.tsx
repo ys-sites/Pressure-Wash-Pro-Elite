@@ -700,13 +700,13 @@ function AppContent() {
         id="hero"
         className="pt-32 pb-24 text-center relative overflow-hidden min-h-[85vh] flex items-center justify-center"
       >
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <motion.div
             className="w-full h-full bg-[url('/media/hero.jpg')] bg-cover bg-center"
-            initial={{ scale: 1.05 }}
+            initial={{ scale: 1.25 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 10, ease: "easeOut" }}
-            style={{ willChange: "transform" }}
+            transition={{ duration: 8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{ willChange: "transform", transformOrigin: "center center" }}
           />
           <div className="absolute inset-0 bg-black/50"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-slate-900/80"></div>
