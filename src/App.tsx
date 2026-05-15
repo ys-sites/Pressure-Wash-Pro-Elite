@@ -1064,28 +1064,22 @@ function AppContent() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-xl mx-auto bg-primary rounded-[2.5rem] p-6 md:p-8 text-center text-white border border-primary shadow-2xl mb-16"
+            className="max-w-md mx-auto bg-primary rounded-2xl p-4 md:p-5 text-center text-white border border-primary shadow-xl mb-10 flex items-center gap-4"
           >
-            <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-inner">
-              <Star
-                size={28}
-                className="fill-yellow-400 text-yellow-400 drop-shadow-md"
-              />
+            <div className="shrink-0 w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center shadow-inner">
+              <Star size={16} className="fill-yellow-400 text-yellow-400" />
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">
-              Enjoyed working with Pressure Wash Pro Elite?
-            </h3>
-            <p className="text-white/90 mb-6 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-              If we transformed your space, we'd appreciate a quick 5-star Google
-              review. It helps more homeowners find us.
-            </p>
+            <div className="text-left flex-1 min-w-0">
+              <p className="font-bold text-sm leading-snug">Enjoyed working with us? Leave a 5-star Google review!</p>
+              <p className="text-white/75 text-xs mt-0.5">It helps more homeowners find us.</p>
+            </div>
             <a
               href="https://www.google.com/search?client=mobilesearchapp&channel=iss&cs=1&hl=en&rlz=1MDAPLA_enUS989US989&sca_esv=8b8e1d908a60a98a&v=414.0.890628820&sxsrf=ANbL-n6jY_iorR0Lso_QbTDNk4YnsjySUA:1778878977132&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOXAlFZFY_F7VLDQYR5opUE_7cURd6gpP-6c6JEb4OnZQ_DYLSzas36k9g9Vz2s2vw178MrBoV2Zs70K5XbAZVnizQQyqfSUIF4hkOHyXgowOpkJbRg%3D%3D&q=Pressure+Wash+Pros+Elite+Reviews&sa=X&ved=2ahUKEwjd4p7MmLyUAxUkKFkFHT56NIUQ0bkNegQIIhAF&biw=1491&bih=710&dpr=1.25"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-base hover:bg-neutral-100 transition-colors shadow-lg hover:shadow-xl"
+              className="shrink-0 inline-flex items-center gap-1.5 bg-white text-primary px-4 py-2 rounded-full font-bold text-xs hover:bg-neutral-100 transition-colors shadow-md whitespace-nowrap"
             >
-              Leave a 5-Star Review <ArrowRight size={18} />
+              Review Us <ArrowRight size={13} />
             </a>
           </motion.div>
 
