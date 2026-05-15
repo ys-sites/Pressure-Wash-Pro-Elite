@@ -292,7 +292,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 md:px-0">
         <AnimatePresence mode="popLayout">
-          {displayProjects.map((project) => (
+          {displayProjects.map((project, displayIndex) => (
             <motion.div
               layout
               key={project.id}
@@ -301,7 +301,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className="rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative"
+              className={`rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative${!all && displayIndex >= 4 ? ' hidden sm:block' : ''}`}
               onClick={() => setSelectedImage(project.src)}
             >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 flex items-center justify-center">
@@ -427,7 +427,7 @@ const Navbar = ({ t }: { t: any }) => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="absolute top-4 left-0 right-0 px-4 z-50 pointer-events-auto flex items-start justify-between lg:hidden"
+        className="absolute top-4 left-0 right-0 pl-5 pr-4 z-50 pointer-events-auto flex items-start justify-between lg:hidden"
       >
         <Link to="/" className="hover:opacity-80 transition-opacity block shrink-0 mt-2">
           <Logo className="h-16 w-auto drop-shadow-xl" />
@@ -474,6 +474,20 @@ const Navbar = ({ t }: { t: any }) => {
 };
 
 const Footer = ({ t }: { t: any }) => {
+  const [mobileCTAOpen, setMobileCTAOpen] = React.useState(false);
+  const [autoCTAShown, setAutoCTAShown] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (!autoCTAShown && window.scrollY > window.innerHeight * 3) {
+        setMobileCTAOpen(true);
+        setAutoCTAShown(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [autoCTAShown]);
+
   return (
     <>
       <footer className="bg-neutral-950 text-neutral-400 py-10 border-t border-neutral-900">
@@ -571,14 +585,70 @@ const Footer = ({ t }: { t: any }) => {
         </div>
       </footer>
 
-      {/* Floating Call Button */}
+      {/* Mobile CTA Bottom Sheet */}
+      <AnimatePresence>
+        {mobileCTAOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] sm:hidden"
+            onClick={() => setMobileCTAOpen(false)}
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="w-12 h-1 bg-neutral-200 rounded-full mx-auto mb-5" />
+              <h3 className="text-xl font-bold text-neutral-900 mb-1.5 text-center">Ready to get started?</h3>
+              <p className="text-neutral-500 text-sm text-center mb-6">Transform your property — get a free quote today!</p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href="tel:3213676110"
+                  className="w-full bg-primary text-white py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                  onClick={() => setMobileCTAOpen(false)}
+                >
+                  <Phone size={20} /> Call Now: (321) 367-6110
+                </a>
+                <Link
+                  to="/#contact"
+                  className="w-full bg-neutral-100 text-neutral-900 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2"
+                  onClick={() => setMobileCTAOpen(false)}
+                >
+                  Get a Free Quote Online <ArrowRight size={18} />
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Call Button — Mobile: opens CTA sheet */}
+      <motion.button
+        onClick={() => setMobileCTAOpen(true)}
+        initial={{ opacity: 0, scale: 0.5, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-700 transition-colors sm:hidden"
+        aria-label="Call Pressure Wash Pro Elite"
+      >
+        <Phone size={24} />
+      </motion.button>
+
+      {/* Floating Call Button — Desktop: direct call */}
       <motion.a
         href="tel:3213676110"
         initial={{ opacity: 0, scale: 0.5, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-700 transition-colors group"
+        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hidden sm:flex items-center justify-center hover:bg-blue-700 transition-colors group"
         aria-label="Call Pressure Wash Pro Elite"
       >
         <Phone size={24} className="group-hover:animate-bounce" />
@@ -743,20 +813,20 @@ function AppContent() {
             transition={{ delay: 0.3 }}
             className="flex flex-col items-center justify-center gap-4"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-row items-center justify-center gap-3">
               <Link
                 to="/#contact"
-                className="bg-primary text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-base sm:text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
+                className="bg-primary text-white px-5 sm:px-10 py-3 sm:py-5 rounded-full font-bold text-sm sm:text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1"
               >
-                {t.hero.cta} <ArrowRight size={18} />
+                {t.hero.cta} <ArrowRight size={16} />
               </Link>
               <a
                 href="https://www.instagram.com/pressurewashpross"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 sm:w-[60px] sm:h-[60px] bg-gradient-to-tr from-sky-400 via-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-transform flex-shrink-0"
+                className="w-11 h-11 sm:w-[60px] sm:h-[60px] bg-gradient-to-tr from-sky-400 via-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white shadow-xl hover:shadow-2xl hover:scale-110 transition-transform flex-shrink-0"
               >
-                <Instagram size={28} />
+                <Instagram size={22} />
               </a>
             </div>
             <p className="text-xs sm:text-sm text-white/80 font-semibold flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full backdrop-blur-md border border-white/20 shadow-sm">
@@ -1069,7 +1139,7 @@ function AppContent() {
           className="text-neutral-600 text-center mb-12 max-w-2xl mx-auto justify-center"
         />
 
-        <div className="relative w-full py-4 mb-16">
+        <div className="relative w-full py-4 mb-16 overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1101,22 +1171,22 @@ function AppContent() {
           >
             {[...t.testimonials.items, ...t.testimonials.items].map(
               (testimonial, i) => (
-                <div key={i} className="w-[350px] md:w-[400px] shrink-0">
-                  <Card className="h-full flex flex-col justify-between bg-white shadow-sm border border-neutral-100 !p-8 relative">
+                <div key={i} className="w-[270px] sm:w-[340px] md:w-[400px] shrink-0">
+                  <Card className="h-full flex flex-col justify-between bg-white shadow-sm border border-neutral-100 !p-5 sm:!p-8 relative">
                     <div className="absolute bottom-6 right-6 text-primary/5 font-serif text-8xl leading-none select-none pointer-events-none">
                       <Quote size={80} className="text-primary/10" />
                     </div>
                     <div className="relative z-10">
-                      <div className="flex gap-1 mb-6">
+                      <div className="flex gap-1 mb-4 sm:mb-6">
                         {[...Array(5)].map((_, j) => (
                           <Star
                             key={j}
-                            size={18}
+                            size={16}
                             className="fill-yellow-400 text-yellow-400"
                           />
                         ))}
                       </div>
-                      <p className="text-neutral-700 italic mb-8 leading-relaxed text-lg">
+                      <p className="text-neutral-700 italic mb-5 sm:mb-8 leading-relaxed text-sm sm:text-lg">
                         "{testimonial.text}"
                       </p>
                     </div>
