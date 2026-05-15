@@ -23,18 +23,33 @@ export const translations = {
       title: "Services We Offer",
       subtitle:
         "Comprehensive pressure washing solutions for every surface, delivered with precision and care.",
-      exterior: {
-        title: "Exterior House & Window Cleaning",
-        desc: "Restores siding and leaves windows streak-free. Siding, brick, and stucco cleaning tailored to your home.",
-      },
-      interior: {
-        title: "Driveway, Sidewalk, Curb Cleaning",
-        desc: "Removes dirt, oil stains, and buildup for a fresh look.",
-      },
-      dye: {
-        title: "Roof & Gutters Cleaning",
-        desc: "Eliminates black streaks and protects your roof from costly damage.",
-      },
+      items: [
+        {
+          title: "Driveway, Sidewalk, Curb Cleaning",
+          desc: "Removes dirt, oil stains, and buildup for a fresh look.",
+          icon: "driveway",
+        },
+        {
+          title: "Paver Cleaning & Sealing",
+          desc: "Restores color and protects against future wear.",
+          icon: "paver",
+        },
+        {
+          title: "Roof & Gutters Cleaning",
+          desc: "Eliminates black streaks and protects your roof from costly damage.",
+          icon: "roof",
+        },
+        {
+          title: "Exterior House & Window Cleaning",
+          desc: "Restores siding and leaves windows streak-free. Tailored to your home.",
+          icon: "house",
+        },
+        {
+          title: "Patio & Fence Cleaning & Yard Clean-up",
+          desc: "Brings outdoor spaces back to life.",
+          icon: "patio",
+        },
+      ],
       cta: {
         title: "Ready to revitalize your space?",
         subtitle: "Get a free, professional, no-obligation quote today.",
@@ -84,32 +99,27 @@ export const translations = {
     },
     testimonials: {
       title: "Reviews",
-      subtitle: "Don't just take our word for it. Review what our clients say.",
+      subtitle: "Don't just take our word for it. See what our clients say.",
       items: [
-        {
-          name: "Carlos Rosas",
-          role: "Homeowner",
-          text: "Great experience with Pressure Wash Pros Elite. They showed up on time, were professional, and did an amazing job on our driveway and sidewalks. Everything looks clean and refreshed again. Fair pricing and great attention to detail. Highly recommend!",
-        },
-        {
-          name: "James Rollins",
-          role: "Homeowner",
-          text: "Diego from Pressure Wash Pros Elite has completed work on multiple properties for me, and I truly couldn't be happier with the results. From start to finish, he is professional, punctual, and extremely detail-oriented.",
-        },
-        {
-          name: "Kacey Hernandez",
-          role: "Homeowner",
-          text: "I don't usually leave reviews, but Diego and his team honestly deserve it. I had my roof cleaned and the difference is crazy, it literally looks like a brand new roof again. All the dark stains and buildup are completely gone.",
-        },
         {
           name: "Manny Ortiz",
           role: "Real Estate Agent",
-          text: "As a real estate agent, presentation is everything. Diego and his crew helped get one of my listings ready by cleaning the driveway, walkway, and exterior. The difference was night and day. Professional, responsive, and did exactly what they said they would.",
+          text: "As a real estate agent, presentation is everything. Diego and his crew helped get one of my listings ready by cleaning the driveway, walkway, and exterior. The difference was night and day. Professional, responsive, and did exactly what they said they would. I'll be referring him to clients.",
         },
         {
-          name: "Orlando Ramirez",
+          name: "Liz Rosas",
           role: "Homeowner",
-          text: "Diego and his team did an awesome job cleaning all my windows and giving the house a full wash. The difference is night and day. Very professional, fair pricing, and great attention to detail. Highly recommend!",
+          text: "Pressure Wash Pros Elite did an awesome job. Diego was easy to work with, very professional, and the attention to detail really showed. Our driveway and patio look super clean now. If you're looking for reliable pressure washing in the Winter Garden area, I'd definitely recommend them.",
+        },
+        {
+          name: "Amy Jackson",
+          role: "Homeowner",
+          text: "Pressure Wash Pros Elite did an amazing job! Diego was professional, on time, and very detail-oriented. My driveway, sidewalk, and patio look brand new. The whole process was smooth and the results were even better than I expected. Highly recommend if you need pressure washing done right!",
+        },
+        {
+          name: "Ella Goosen",
+          role: "Homeowner",
+          text: "My son hired Pressure Wash Pros Elite and I'm honestly so impressed with the results. They were very polite, showed up right on time, and worked hard the whole time they were here. Everything looks so clean now, especially the driveway and sidewalk. It really made a big difference. Pricing was very reasonable too. I would definitely recommend them to anyone looking to have their home cleaned!",
         },
       ],
     },

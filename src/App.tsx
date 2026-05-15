@@ -407,13 +407,13 @@ const Navbar = ({ t }: { t: any }) => {
         className="absolute top-4 md:top-8 left-1/2 -translate-x-1/2 z-50 pointer-events-auto hidden lg:block"
       >
         <nav className="bg-white/95 backdrop-blur-sm border border-neutral-200/50 rounded-full pl-2 pr-2 py-2 flex items-center shadow-lg">
-          <div className="flex items-center bg-transparent rounded-full px-2 gap-2 mr-2">
-            <Link to="/#hero" className="px-4 py-2 rounded-full text-sm font-bold bg-blue-100/80 text-primary shadow-sm hover:opacity-90">{t.nav.home}</Link>
-            <Link to="/#about" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900">{t.nav.about}</Link>
-            <Link to="/#services" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900">{t.nav.services}</Link>
-            <Link to="/#process" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900">{t.nav.process}</Link>
-            <Link to="/portfolio" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900">{t.nav.portfolio}</Link>
-            <Link to="/#testimonials" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900">{t.nav.reviews}</Link>
+          <div className="flex items-center bg-transparent rounded-full px-2 gap-1 mr-2">
+            <Link to="/#hero" className="px-3 py-2 rounded-full text-sm font-bold bg-blue-100/80 text-primary shadow-sm hover:opacity-90 whitespace-nowrap">{t.nav.home}</Link>
+            <Link to="/#about" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900 whitespace-nowrap">{t.nav.about}</Link>
+            <Link to="/#services" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900 whitespace-nowrap">{t.nav.services}</Link>
+            <Link to="/#process" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900 whitespace-nowrap">{t.nav.process}</Link>
+            <Link to="/portfolio" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900 whitespace-nowrap">{t.nav.portfolio}</Link>
+            <Link to="/#testimonials" className="px-3 py-2 rounded-full text-sm font-medium text-neutral-600 hover:text-neutral-900 whitespace-nowrap">{t.nav.reviews}</Link>
           </div>
           <Link
             to="/#contact"
@@ -805,13 +805,19 @@ function AppContent() {
               className="text-xl font-medium mb-8 text-white/80"
             />
 
-            <div className="mb-8 space-y-4">
+            <div className="mb-8 space-y-5">
               {t.about.desc
                 .split("\n\n")
                 .map((paragraph: string, i: number) => (
-                  <p key={i} className="text-white/70 leading-relaxed text-lg">
-                    {paragraph}
-                  </p>
+                  <BlurText
+                    key={i}
+                    text={paragraph}
+                    delay={20}
+                    stepDuration={0.35}
+                    animateBy="words"
+                    direction="top"
+                    className="text-white/70 leading-relaxed text-lg"
+                  />
                 ))}
             </div>
 
@@ -866,81 +872,97 @@ function AppContent() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto px-4">
+          {/* Services checklist column */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:col-span-2 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-neutral-100 hover:border-primary/30 transition-colors group relative overflow-hidden"
+            transition={{ duration: 0.6 }}
+            className="bg-white rounded-3xl p-8 shadow-sm border border-neutral-100 relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
-            <div className="absolute top-0 right-0 p-6 sm:p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Sparkles size={80} sm-size={120} />
+            {/* Decorative background lines */}
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+              <svg width="100%" height="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                {[...Array(12)].map((_, i) => (
+                  <circle key={i} cx="200" cy="200" r={30 + i * 30} fill="none" stroke="#0284c7" strokeWidth="1" />
+                ))}
+              </svg>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 relative z-10">
-              {t.services.exterior.title}
-            </h3>
-            <p className="text-neutral-600 text-base sm:text-lg max-w-md relative z-10">
-              {t.services.exterior.desc}
-            </p>
+            <ul className="space-y-6 relative z-10">
+              {t.services.items.map((svc: { title: string; desc: string }, i: number) => (
+                <motion.li
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.1 * i }}
+                  className="flex items-start gap-4"
+                >
+                  <div className="shrink-0 mt-0.5 w-7 h-7 rounded-full border-2 border-primary flex items-center justify-center">
+                    <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-bold text-neutral-900 text-lg leading-snug">{svc.title}</p>
+                    <p className="text-neutral-500 text-sm mt-0.5">{svc.desc}</p>
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-neutral-50 rounded-3xl p-6 sm:p-8 border border-neutral-100 hover:border-primary/30 transition-colors group relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
-            <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 relative z-10">
-              {t.services.interior.title}
-            </h3>
-            <p className="text-neutral-600 text-xs sm:text-sm relative z-10">
-              {t.services.interior.desc}
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-neutral-50 rounded-3xl p-6 sm:p-8 border border-neutral-100 hover:border-primary/30 transition-colors group relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
-            <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 relative z-10">
-              {t.services.dye.title}
-            </h3>
-            <p className="text-neutral-600 text-xs sm:text-sm relative z-10">
-              {t.services.dye.desc}
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="md:col-span-2 bg-gradient-to-br from-blue-700 to-primary text-white rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center items-start relative overflow-hidden"
-          >
-            <div className="absolute -right-10 -bottom-10 opacity-10">
-              <ShieldCheck size={150} sm-size={200} />
-            </div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-2">
-              {t.services.cta.title}
-            </h3>
-            <p className="text-white/80 mb-5 sm:mb-6 max-w-md text-sm sm:text-base">
-              {t.services.cta.subtitle}
-            </p>
-            <Link
-              to="/#contact"
-              className="bg-white text-primary px-5 sm:px-6 py-3 sm:py-3 rounded-full font-bold text-xs sm:text-sm hover:bg-neutral-50 transition-colors flex items-center gap-2"
+          {/* Right column: CTA card + trust badges */}
+          <div className="flex flex-col gap-6">
+            {/* CTA Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="bg-gradient-to-br from-blue-700 to-primary text-white rounded-3xl p-8 shadow-lg flex flex-col justify-center items-start relative overflow-hidden flex-1"
             >
-              {t.services.cta.button} <ArrowRight size={14} sm-size={16} />
-            </Link>
-          </motion.div>
+              <div className="absolute -right-8 -bottom-8 opacity-10">
+                <ShieldCheck size={160} />
+              </div>
+              <h3 className="text-2xl font-bold mb-2 relative z-10">{t.services.cta.title}</h3>
+              <p className="text-white/80 mb-6 text-sm relative z-10">{t.services.cta.subtitle}</p>
+              <Link
+                to="/#contact"
+                className="bg-white text-primary px-6 py-3 rounded-full font-bold text-sm hover:bg-neutral-50 transition-colors flex items-center gap-2 relative z-10"
+              >
+                {t.services.cta.button} <ArrowRight size={16} />
+              </Link>
+            </motion.div>
+
+            {/* Trust badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-sky-100 rounded-3xl p-6 border border-sky-200 flex flex-col gap-3"
+            >
+              <a
+                href="tel:3213676110"
+                className="text-center font-extrabold text-neutral-900 text-lg underline underline-offset-4 decoration-primary hover:text-primary transition-colors"
+              >
+                Get a free quote<br />Dial -321-367-6110
+              </a>
+              <div className="mt-2 space-y-2">
+                {[
+                  { icon: "✅", label: "Locally Owned" },
+                  { icon: "⭐", label: "5-Star Rated" },
+                  { icon: "✅", label: "Licensed & Insured" },
+                ].map(({ icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-neutral-800 font-medium">
+                    <span>{icon}</span> {label}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
 
         {/* Social Proof */}
@@ -976,11 +998,7 @@ function AppContent() {
           <div className="flex items-center gap-2 text-neutral-600 font-medium">
             <div className="flex gap-1">
               {[...Array(5)].map((_, j) => (
-                <Star
-                  key={j}
-                  size={18}
-                  className="fill-yellow-400 text-yellow-400"
-                />
+                <Star key={j} size={18} className="fill-yellow-400 text-yellow-400" />
               ))}
             </div>
             <span className="text-lg">5.0</span>
