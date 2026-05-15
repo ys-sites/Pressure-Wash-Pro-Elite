@@ -942,25 +942,37 @@ function AppContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-sky-100 rounded-3xl p-6 border border-sky-200 flex flex-col gap-3"
+              className="bg-white rounded-3xl p-6 border border-neutral-100 shadow-sm flex flex-col gap-4"
             >
+              {/* Phone CTA */}
               <a
                 href="tel:3213676110"
-                className="text-center font-extrabold text-neutral-900 text-lg underline underline-offset-4 decoration-primary hover:text-primary transition-colors"
+                className="flex items-center gap-3 group"
               >
-                Get a free quote<br />Dial -321-367-6110
+                <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all">
+                  <Phone size={18} className="text-primary group-hover:text-white transition-colors" />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-500 font-medium">Get a free quote — Call us</p>
+                  <p className="text-lg font-bold text-neutral-900 tracking-tight group-hover:text-primary transition-colors">(321) 367-6110</p>
+                </div>
               </a>
-              <div className="mt-2 space-y-2">
+
+              <div className="h-px bg-neutral-100" />
+
+              {/* Trust points */}
+              <ul className="space-y-3">
                 {[
-                  { icon: "✅", label: "Locally Owned" },
-                  { icon: "⭐", label: "5-Star Rated" },
-                  { icon: "✅", label: "Licensed & Insured" },
+                  { icon: <CheckCircle size={18} className="text-primary" />, label: "Locally Owned & Operated" },
+                  { icon: <Star size={18} className="fill-yellow-400 text-yellow-400" />, label: "5-Star Rated on Google" },
+                  { icon: <ShieldCheck size={18} className="text-primary" />, label: "Licensed & Insured" },
                 ].map(({ icon, label }) => (
-                  <div key={label} className="flex items-center gap-2 text-neutral-800 font-medium">
-                    <span>{icon}</span> {label}
-                  </div>
+                  <li key={label} className="flex items-center gap-3 text-neutral-700 font-medium text-sm">
+                    <span className="shrink-0">{icon}</span>
+                    {label}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           </div>
         </div>
