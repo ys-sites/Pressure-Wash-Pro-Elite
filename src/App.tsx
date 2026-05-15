@@ -199,13 +199,48 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
     "/media/694298566_17888807808498336_4462390657815014938_n.jpg",
   ];
 
-  /* Ensure you manually re-assign the categories for each project depending on the actual visual content of the image! */
+  /* Category mapping verified by visual inspection of every image — July 2025.
+     Driveways = front of house | Patios = back/side of house | Roofs = on top of house */
+  const IMAGE_CATEGORIES: Record<string, string> = {
+    "/media/681223312_17887291482498336_5997628289701398457_n.jpg":   "Patios",    // screened pool patio w/ flagstone
+    "/media/681275693_17887875816498336_6461022882692909500_n.jpg":   "Driveways", // concrete driveway + garage front
+    "/media/681283886_17887291281498336_2947960714908521656_n.jpg":   "Driveways", // concrete driveway + two-story house
+    "/media/681332233_17887291911498336_5683450116220470454_n.jpg":   "Patios",    // wooden dock / waterfront deck
+    "/media/681506331_17887291524498336_4960231458414595658_n.jpg":   "Driveways", // long concrete driveway + front house
+    "/media/681617677_17887874562498336_3618749318565064718_n-1.jpg": "Driveways", // luxury paver driveway, arched front
+    "/media/681617677_17887874562498336_3618749318565064718_n.jpg":   "Driveways", // same as above (duplicate)
+    "/media/681810968_17887873440498336_2085463534930112871_n.jpg":   "Driveways", // large luxury estate paver driveway
+    "/media/682101925_17887874325498336_3088102195654254409_n.jpg":   "Driveways", // paver driveway + stone entry, front
+    "/media/682256810_17887874334498336_584188443371572302_n.jpg":    "Driveways", // sidewalk & curb cleaning, front of homes
+    "/media/682577942_17887877904498336_6080353921922885483_n.jpg":   "Driveways", // concrete driveway + white garage front
+    "/media/682696776_17887874043498336_3317253884249633591_n-1.jpg": "Driveways", // large paver driveway, modern house front
+    "/media/682696776_17887874043498336_3317253884249633591_n.jpg":   "Driveways", // same as above (duplicate)
+    "/media/682709300_17887290807498336_6751879593226950581_n.jpg":   "Driveways", // concrete driveway + Mediterranean front
+    "/media/682709303_17887291452498336_6038732104326364976_n.jpg":   "Patios",    // screened pool patio w/ flagstone (back)
+    "/media/682775395_17887290222498336_969270796091008949_n.jpg":    "Patios",    // white vinyl fence in backyard
+    "/media/682775395_17887291149498336_2887580016143951022_n.jpg":   "Driveways", // concrete sidewalk + front walkway
+    "/media/682844403_17887289556498336_3248915509766235672_n.jpg":   "Roofs",     // cedar shake roof tiles cleaning
+    "/media/683006560_17887290711498336_9209943091701563187_n.jpg":   "Roofs",     // red barrel tile roof from above
+    "/media/683397576_17887873821498336_5902036501685157962_n.jpg":   "Driveways", // large concrete driveway + gray house front
+    "/media/683610482_17887289685498336_7961019839406207397_n.jpg":   "Patios",    // screened back patio w/ brick pavers & pool
+    "/media/683622205_17887873830498336_7753766581126247652_n-1.jpg": "Patios",    // back/side exterior wall cleaning
+    "/media/683622205_17887873830498336_7753766581126247652_n.jpg":   "Patios",    // same as above (duplicate)
+    "/media/683624854_17887290816498336_2393985182751049173_n.jpg":   "Driveways", // concrete driveway + SUV, front house
+    "/media/683648378_17887291875498336_5685353851466788470_n.jpg":   "Driveways", // front driveway, white garage, trucks
+    "/media/683650966_17887290204498336_8802762622775293997_n.jpg":   "Patios",    // white vinyl gate/fence in backyard
+    "/media/684143933_17887873155498336_5913042798487256020_n.jpg":   "Driveways", // luxury white mansion, paver driveway front
+    "/media/684145635_17887290213498336_1063026111179154528_n.jpg":   "Patios",    // white vinyl fence backyard cleaning
+    "/media/684237841_17887291356498336_6494234406840005229_n.jpg":   "Roofs",     // shingle roof view from rooftop
+    "/media/684237932_17888807850498336_8044254062453874601_n.jpg":   "Roofs",     // tile roof cleaning, standing on roof
+    "/media/684269044_17887291140498336_4656183899732942620_n.jpg":   "Driveways", // paver + concrete driveway, modern townhouse
+    "/media/684391011_17888807835498336_2542985189160063614_n.jpg":   "Roofs",     // red barrel tile roof, aerial view
+    "/media/684677177_17888807868498336_7242806722461931017_n.jpg":   "Roofs",     // red barrel tile roof, close rooftop shot
+    "/media/685043138_17887873614498336_5494646109088516105_n.jpg":   "Driveways", // concrete driveway + blue two-story house front
+    "/media/694298566_17888807808498336_4462390657815014938_n.jpg":   "Roofs",     // red barrel tile roof before/after, drone view
+  };
+
   const categorizedProjects = allProjectsRaw.map((src, idx) => {
-    // Note: To precisely place photos, you can update this list with specific paths!
-    // Since there's one great Roof image, mapping exactly one. The rest map to Driveways & Patios.
-    let cat = CATEGORIES[1]; // Driveways
-    if (idx % 2 === 1) cat = CATEGORIES[2]; // Patios
-    if (idx === 3) cat = CATEGORIES[3]; // Roofs (Assuming the 4th loaded image is the Roof)
+    const cat = IMAGE_CATEGORIES[src] ?? CATEGORIES[1]; // default to Driveways if unmapped
     return { id: idx, src, category: cat };
   });
 
