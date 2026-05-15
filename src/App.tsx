@@ -359,7 +359,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative max-w-7xl max-h-[90vh] w-full"
+              className="relative max-w-3xl max-h-[70vh] w-full"
               onClick={(e) => e.stopPropagation()} // Prevent clicks on image from closing
             >
               <button
