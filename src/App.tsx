@@ -1004,7 +1004,7 @@ function AppContent() {
               />
             ))}
             <div className="w-10 h-10 rounded-full border-2 border-white bg-neutral-100 flex items-center justify-center text-xs font-bold text-neutral-600">
-              +50
+              +25
             </div>
           </div>
           <div className="flex items-center gap-2 text-neutral-600 font-medium">
