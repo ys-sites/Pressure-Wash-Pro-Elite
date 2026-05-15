@@ -1,0 +1,6 @@
+{
+  "name": "Pressure Wash Pro Elite",
+  "description": "Professional pressure washing services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
