@@ -1179,22 +1179,22 @@ function AppContent() {
           >
             {[...t.testimonials.items, ...t.testimonials.items].map(
               (testimonial, i) => (
-                <div key={i} className="w-[270px] sm:w-[340px] md:w-[400px] shrink-0">
-                  <Card className="h-full flex flex-col justify-between bg-white shadow-sm border border-neutral-100 !p-5 sm:!p-8 relative">
+                <div key={i} className="w-[270px] sm:w-[300px] md:w-[320px] lg:w-[280px] shrink-0">
+                  <Card className="h-full flex flex-col justify-between bg-white shadow-sm border border-neutral-100 !p-5 lg:!p-6 relative">
                     <div className="absolute bottom-6 right-6 text-primary/5 font-serif text-8xl leading-none select-none pointer-events-none">
                       <Quote size={80} className="text-primary/10" />
                     </div>
                     <div className="relative z-10">
-                      <div className="flex gap-1 mb-4 sm:mb-6">
+                      <div className="flex gap-1 mb-4">
                         {[...Array(5)].map((_, j) => (
                           <Star
                             key={j}
-                            size={16}
+                            size={14}
                             className="fill-yellow-400 text-yellow-400"
                           />
                         ))}
                       </div>
-                      <p className="text-neutral-700 italic mb-5 sm:mb-8 leading-relaxed text-sm sm:text-lg">
+                      <p className="text-neutral-700 italic mb-4 leading-relaxed text-sm">
                         "{testimonial.text}"
                       </p>
                     </div>
