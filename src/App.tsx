@@ -1122,7 +1122,59 @@ function AppContent() {
         </div>
       </Section>
 
-      {/* Before/After Gallery */}
+      {/* Before/After Sliders */}
+      <Section id="comparison" className="bg-white overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 flex justify-center">
+            <ShinyText text={t.transformation.title} speed={3} color="#0f172a" shineColor="#0284c7" />
+          </h2>
+          <BlurText
+            text={t.transformation.subtitle}
+            delay={30}
+            stepDuration={0.4}
+            animateBy="words"
+            direction="top"
+            className="text-neutral-600 max-w-xl mx-auto justify-center"
+          />
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-5xl mx-auto px-4">
+          <BeforeAfterSlider
+            src="/media/684143933_17887873155498336_5913042798487256020_n.jpg"
+            category="Driveway"
+          />
+          <BeforeAfterSlider
+            src="/media/683610482_17887289685498336_7961019839406207397_n.jpg"
+            category="Patio"
+          />
+          <BeforeAfterSlider
+            src="/media/694298566_17888807808498336_4462390657815014938_n.jpg"
+            category="Roof"
+          />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-12 flex justify-center"
+        >
+          <Link
+            to="/portfolio"
+            className="px-8 py-4 bg-primary text-white rounded-full font-bold hover:bg-blue-700 transition-all flex justify-center items-center gap-2 shadow-lg shadow-primary/20 hover:-translate-y-0.5"
+          >
+            See More <ArrowRight size={18} />
+          </Link>
+        </motion.div>
+      </Section>
+
+      {/* Photo Gallery — 8 on desktop/tablet, 3 on mobile */}
       <PortfolioGallery t={t} />
 
       {/* Proof - Validating the Outcome */}
@@ -1495,5 +1547,75 @@ function IgVideoCard({
         )}
       </div>
     </div>
+  );
+}
+
+function BeforeAfterSlider({ src, category }: { src: string; category: string }) {
+  const [pos, setPos] = React.useState(50);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const dragging = React.useRef(false);
+
+  const updatePos = (clientX: number) => {
+    if (!containerRef.current) return;
+    const { left, width } = containerRef.current.getBoundingClientRect();
+    setPos(Math.max(2, Math.min(98, ((clientX - left) / width) * 100)));
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      <div
+        ref={containerRef}
+        className="relative rounded-2xl overflow-hidden aspect-[4/3] cursor-ew-resize select-none shadow-lg border border-neutral-200/60"
+        style={{ touchAction: "none" }}
+        onMouseDown={() => { dragging.current = true; }}
+        onMouseMove={(e) => { if (dragging.current) updatePos(e.clientX); }}
+        onMouseUp={() => { dragging.current = false; }}
+        onMouseLeave={() => { dragging.current = false; }}
+        onTouchStart={(e) => { dragging.current = true; updatePos(e.touches[0].clientX); }}
+        onTouchMove={(e) => updatePos(e.touches[0].clientX)}
+        onTouchEnd={() => { dragging.current = false; }}
+      >
+        {/* AFTER — full colour base */}
+        <img
+          src={src}
+          className="absolute inset-0 w-full h-full object-cover"
+          alt={`After ${category} pressure washing`}
+          draggable={false}
+        />
+        {/* BEFORE — greyscale dark, clipped to left of handle */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        >
+          <img
+            src={src}
+            className="absolute inset-0 w-full h-full object-cover grayscale brightness-50"
+            alt={`Before ${category} pressure washing`}
+            draggable={false}
+          />
+        </div>
+        {/* Labels */}
+        <span className="absolute top-3 left-3 bg-black/70 text-white text-[11px] font-bold px-2.5 py-1 rounded-full pointer-events-none">BEFORE</span>
+        <span className="absolute top-3 right-3 bg-primary text-white text-[11px] font-bold px-2.5 py-1 rounded-full pointer-events-none">AFTER</span>
+        {/* Category badge */}
+        <span className="absolute bottom-3 left-3 bg-white/90 text-neutral-800 text-[10px] font-bold px-2 py-1 rounded-sm shadow-sm pointer-events-none">{category}</span>
+        {/* Drag handle */}
+        <div
+          className="absolute inset-y-0 pointer-events-none"
+          style={{ left: `${pos}%`, transform: "translateX(-50%)" }}
+        >
+          <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px] bg-white shadow-[0_0_8px_rgba(0,0,0,0.5)]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-white rounded-full shadow-xl flex items-center justify-center border border-neutral-100">
+            <ChevronLeft size={11} className="text-neutral-500" />
+            <ChevronRight size={11} className="text-neutral-500" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }
