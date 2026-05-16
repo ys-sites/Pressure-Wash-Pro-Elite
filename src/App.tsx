@@ -592,11 +592,11 @@ const Footer = ({ t }: { t: any }) => {
       <AnimatePresence>
         {mobileCTAOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
+            initial={{ opacity: 0, scale: 0.8, x: 12 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            exit={{ opacity: 0, scale: 0.8, x: 12 }}
             transition={{ type: "spring", damping: 22, stiffness: 280 }}
-            className="fixed bottom-20 right-4 z-50 sm:hidden w-[218px] bg-white rounded-2xl shadow-2xl border border-neutral-100 overflow-hidden origin-bottom-right pointer-events-auto"
+            className="fixed bottom-4 right-20 z-50 w-[218px] bg-white rounded-2xl shadow-2xl border border-neutral-100 overflow-hidden origin-right pointer-events-auto"
           >
             {/* 5s countdown progress bar */}
             <motion.div
@@ -643,27 +643,12 @@ const Footer = ({ t }: { t: any }) => {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-700 transition-colors sm:hidden"
+        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-blue-700 transition-colors"
         aria-label="Call Pressure Wash Pro Elite"
       >
         <Phone size={24} />
       </motion.button>
 
-      {/* Floating Call Button — Desktop: direct call */}
-      <motion.a
-        href="tel:3213676110"
-        initial={{ opacity: 0, scale: 0.5, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-4 right-4 z-50 w-14 h-14 bg-primary text-white rounded-full shadow-2xl hidden sm:flex items-center justify-center hover:bg-blue-700 transition-colors group"
-        aria-label="Call Pressure Wash Pro Elite"
-      >
-        <Phone size={24} className="group-hover:animate-bounce" />
-        <span className="absolute right-full mr-4 bg-white text-neutral-900 px-4 py-2 rounded-xl text-sm font-bold shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-neutral-100">
-          {t.hero.consultation.split("•")[0]} (321) 367-6110
-        </span>
-      </motion.a>
     </>
   );
 };
