@@ -1174,9 +1174,6 @@ function AppContent() {
         </motion.div>
       </Section>
 
-      {/* Photo Gallery — 8 on desktop/tablet, 3 on mobile */}
-      <PortfolioGallery t={t} />
-
       {/* Proof - Validating the Outcome */}
       <Section id="testimonials" className="overflow-hidden bg-neutral-50">
         <h2 className="text-4xl font-bold mb-4 text-center tracking-tight flex justify-center">
