@@ -161,6 +161,13 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
     "Roofs",
   ];
 
+  // One representative image per category shown on mobile home screen
+  const MOBILE_PICKS = new Set([
+    "/media/684143933_17887873155498336_5913042798487256020_n.jpg", // Driveways — luxury white mansion
+    "/media/683610482_17887289685498336_7961019839406207397_n.jpg", // Patios — screened patio + pool
+    "/media/694298566_17888807808498336_4462390657815014938_n.jpg", // Roofs — aerial drone before/after
+  ]);
+
   const allProjectsRaw = [
     "/media/681223312_17887291482498336_5997628289701398457_n.jpg",
     "/media/681275693_17887875816498336_6461022882692909500_n.jpg",
@@ -288,7 +295,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 md:px-0">
         <AnimatePresence mode="popLayout">
-          {displayProjects.map((project, displayIndex) => (
+          {displayProjects.map((project) => (
             <motion.div
               layout
               key={project.id}
@@ -297,7 +304,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className={`rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative${!all && displayIndex >= 4 ? ' hidden sm:block' : ''}`}
+              className={`rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative${!all && !MOBILE_PICKS.has(project.src) ? ' hidden sm:block' : ''}`}
               onClick={() => setSelectedImage(project.src)}
             >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 flex items-center justify-center">
