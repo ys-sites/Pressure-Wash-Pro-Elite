@@ -293,7 +293,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 md:px-0">
+      <div className={`grid gap-6 px-4 md:px-0 ${all ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1 sm:grid-cols-3'}`}>
         <AnimatePresence mode="popLayout">
           {displayProjects.map((project) => (
             <motion.div
@@ -304,7 +304,7 @@ const PortfolioGallery = ({ t, all = false }: { t: any; all?: boolean }) => {
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               whileHover={{ y: -5, scale: 1.02 }}
-              className={`rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative${!all && !MOBILE_PICKS.has(project.src) ? ' hidden sm:block' : ''}`}
+              className={`rounded-2xl overflow-hidden shadow-md border border-neutral-200/60 bg-white cursor-pointer group relative${!all && !MOBILE_PICKS.has(project.src) ? ' hidden' : ''}`}
               onClick={() => setSelectedImage(project.src)}
             >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10 flex items-center justify-center">
