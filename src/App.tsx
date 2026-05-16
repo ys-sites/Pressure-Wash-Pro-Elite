@@ -488,6 +488,13 @@ const Footer = ({ t }: { t: any }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [autoCTAShown]);
 
+  React.useEffect(() => {
+    if (mobileCTAOpen) {
+      const timer = setTimeout(() => setMobileCTAOpen(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [mobileCTAOpen]);
+
   return (
     <>
       <footer className="bg-neutral-950 text-neutral-400 py-10 border-t border-neutral-900">
@@ -585,45 +592,50 @@ const Footer = ({ t }: { t: any }) => {
         </div>
       </footer>
 
-      {/* Mobile CTA Bottom Sheet */}
+      {/* Mobile CTA Popup — floats above phone button, no overlay, auto-closes in 5s */}
       <AnimatePresence>
         {mobileCTAOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] sm:hidden"
-            onClick={() => setMobileCTAOpen(false)}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ type: "spring", damping: 22, stiffness: 280 }}
+            className="fixed bottom-20 right-4 z-50 sm:hidden w-[218px] bg-white rounded-2xl shadow-2xl border border-neutral-100 overflow-hidden origin-bottom-right pointer-events-auto"
           >
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            {/* 5s countdown progress bar */}
             <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="w-12 h-1 bg-neutral-200 rounded-full mx-auto mb-5" />
-              <h3 className="text-xl font-bold text-neutral-900 mb-1.5 text-center">Ready to get started?</h3>
-              <p className="text-neutral-500 text-sm text-center mb-6">Transform your property — get a free quote today!</p>
-              <div className="flex flex-col gap-3">
+              initial={{ scaleX: 1 }}
+              animate={{ scaleX: 0 }}
+              transition={{ duration: 5, ease: "linear" }}
+              className="h-0.5 bg-primary origin-left"
+            />
+            <div className="p-4">
+              <div className="flex items-start justify-between mb-3">
+                <p className="font-bold text-neutral-900 text-sm leading-snug">Ready to get started?</p>
+                <button
+                  onClick={() => setMobileCTAOpen(false)}
+                  className="w-5 h-5 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-400 shrink-0 ml-2"
+                >
+                  <span className="text-[10px] leading-none">✕</span>
+                </button>
+              </div>
+              <div className="flex flex-col gap-2">
                 <a
                   href="tel:3213676110"
-                  className="w-full bg-primary text-white py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                  className="w-full bg-primary text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-primary/20"
                   onClick={() => setMobileCTAOpen(false)}
                 >
-                  <Phone size={20} /> Call Now: (321) 367-6110
+                  <Phone size={13} /> Call (321) 367-6110
                 </a>
                 <Link
                   to="/#contact"
-                  className="w-full bg-neutral-100 text-neutral-900 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2"
+                  className="w-full bg-neutral-100 text-neutral-800 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5"
                   onClick={() => setMobileCTAOpen(false)}
                 >
-                  Get a Free Quote Online <ArrowRight size={18} />
+                  Get a Free Quote <ArrowRight size={12} />
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
